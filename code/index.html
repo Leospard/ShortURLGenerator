@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> 短网址生成器</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,viewport-fit=cover"/>
+    <meta name="keywords" content="短网址, 短网址生成, 短域名, 短域名生成, 短地址, 短地址生成">
+    <meta name="description" content="免费无广告的短网址生成工具">
+    <meta name="generator" content="dwz v1.0">
+    <meta name="author" content="Anycodes Team">
+    <meta name="copyright" content="2012-2022 Anycodes Team">
+    <link href="https://www.bootcss.com/p/layoutit/css/bootstrap-combined.min.css" rel="stylesheet">
+    <script>
+        function copyUrl(url) {
+            const input = document.createElement('input');
+            document.body.appendChild(input);
+            input.setAttribute('value', url);
+            input.select();
+            if (document.execCommand('copy')) {
+                document.execCommand('copy');
+                console.log('复制成功');
+            }
+            document.body.removeChild(input);
+        }
+
+        function addShortUrl() {
+            const target = document.getElementById("targetdomain").value
+            const xmlhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+                    const response_data = JSON.parse(xmlhttp.response)
+                    if(response_data.status==0){
+                        document.getElementById('result').innerText = `添加失败，原因是：${response_data.msg}`
+                    } else{
+                        document.getElementById('result').innerText = `添加成功，短网址为：${window.location.origin}${response_data.url}`
+                    }
+
+                }
+            }
+            xmlhttp.open("POST", '/api',);
+            xmlhttp.setRequestHeader("Content-Type", "text/plain");
+            xmlhttp.send(JSON.stringify({
+                "target": target,
+            }));
+        }
+    </script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span2">
+        </div>
+        <div class="span8">
+            <h3>
+                短网址生成器
+            </h3>
+            <p>
+                <em>本项目是一个免费的短网址生成工具。该工具仅支持日常生活中的短网址生成，不可以用于违法行为。</em>
+            </p>
+        </div>
+        <div class="span2">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span2">
+        </div>
+        <div class="span8">
+            <legend>短域名生成</legend>
+            <label>请输入要跳转的域名</label><input type="text" id="targetdomain" style="width: 100%" placeholder="请以http://或https://开头，例如：https://anycodes.cn"/>
+            <br>
+            <button class="btn" onclick="addShortUrl()">确定生成</button>
+            <br><br>
+            <p id="result"></p>
+        </div>
+        <div class="span2">
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span2">
+        </div>
+        <div class="span8">
+            <legend>通过 API 调用</legend>
+            <p>请求地址：<code>https://域名/api</code></p>
+            <p>请求方法：<code>POST</code></p>
+            <p>输入参数：<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<code>target</code>：[body] 目标地址</p>
+            <p>输出参数：<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<code>status</code>：状态，1表示成功生成，0表示生成失败<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<code>url</code>：在状态为1时返回，短网址<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<code>msg</code>：在状态为0时返回，错误信息<br></p>
+            <p>示例代码（cURL）：<br>
+            <pre>curl --location --request POST 'https://域名/api' \
+--header 'Content-Type: text/plain' \
+--data-raw '{
+    "target": "https://www.anycodes.cn"
+}'</pre></p>
+            <p>示例代码（Python）：<br>
+            <pre>import requests
+
+url = "https://域名/api"
+
+payload="{\n    \"target\": \"https://www.anycodes.cn\"\n}"
+headers = {
+  'Content-Type': 'text/plain'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+
+print(response.text)
+</pre></p>
+            <p>示例代码（Node.js）：<br>
+            <pre>var request = require('request');
+var options = {
+  'method': 'POST',
+  'url': 'https://域名/api',
+  'headers': {
+    'Content-Type': 'text/plain'
+  },
+  body: '{\n    "target": "https://www.anycodes.cn"\n}'
+
+};
+request(options, function (error, response) {
+  if (error) throw new Error(error);
+  console.log(response.body);
+});
+</pre></p>
+        </div>
+        <div class="span2">
+        </div>
+    </div>
+</div>
+</body>
+</html>

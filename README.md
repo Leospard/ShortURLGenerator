@@ -10,7 +10,7 @@
 ### 准备
 > 依赖安装
 ```bash
-cd code && pip3 install -r requirements.txt 
+pip3 install -r requirements.txt 
 ```
 > 环境变量设置
 设置阿里云的 AK、SK，与 OSS endpoint 的 region 与 bucketname。
@@ -22,7 +22,7 @@ cd code && pip3 install -r requirements.txt
 
 ### 运行
 ```bash
-cd code && python3 index.py 
+python3 index.py 
 ```
 
 通过 127.0.0.1:9000 即可访问

@@ -11,7 +11,6 @@ randomStr = lambda len: "".join(random.sample('abcdefghijklqrstuvwxyz123456789AB
 AccessKey = {
     "id": os.environ.get("ALI_KEY_ID"),
     "secret": os.environ.get("ALI_KEY_SECRET"),
-    # "token": os.environ.get("ALIBABA_CLOUD_SECURITY_TOKEN"),
 }
 OSSConf = {
     'endPoint': 'oss-' + os.environ.get("region") + '.aliyuncs.com',
@@ -22,9 +21,6 @@ OSSConf = {
 # 获取获取/上传文件到OSS的临时地址
 auth = oss2.Auth(AccessKey['id'], AccessKey['secret'])
 bucket = oss2.Bucket(auth, OSSConf['endPoint'], OSSConf['bucketName'])
-
-print(AccessKey)
-print(OSSConf)
 
 # 首页
 @bottle.route('/')
@@ -62,7 +58,6 @@ def short_api():
         except Exception as e:
             print(e)
             return {"status": 0, "msg": '添加失败，异常未知'}
-
 
 if __name__ == "__main__":
     bottle.run(host='0.0.0.0', debug=False, port=9000)

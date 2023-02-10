@@ -13,9 +13,9 @@ AccessKey = {
     "secret": os.environ.get("ALI_KEY_SECRET"),
 }
 OSSConf = {
-    'endPoint': 'oss-' + os.environ.get("region") + '.aliyuncs.com',
+    'endPoint': 'oss-' + os.environ.get("ALI_OSS_REGION") + '.aliyuncs.com',
     # 'endPoint': 'oss-cn-hongkong.aliyuncs.com',
-    'bucketName': os.environ.get("bucket"),
+    'bucketName': os.environ.get("BUCKET"),
 }
 
 # 获取获取/上传文件到OSS的临时地址

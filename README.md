@@ -13,12 +13,13 @@
 pip3 install -r requirements.txt 
 ```
 > 环境变量设置
+
 设置阿里云的 AK、SK，与 OSS endpoint 的 region 与 bucketname。
 所需环境变量：
 1. ALI_KEY_ID       （AK）
 2. ALI_KEY_SECRET   （SK）
-3. region           （例: cn-hangzhou）
-4. bucket
+3. ALI_OSS_REGION   （例: cn-hangzhou）
+4. BUCKET
 
 ### 运行
 ```bash

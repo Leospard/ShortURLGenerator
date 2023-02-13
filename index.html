@@ -30,12 +30,15 @@
             xmlhttp.onreadystatechange = function () {
                 if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
                     const response_data = JSON.parse(xmlhttp.response)
-                    if(response_data.status==0){
+                    if(response_data.status==0) {
                         document.getElementById('result').innerText = `添加失败，原因是：${response_data.msg}`
-                    } else{
-                        document.getElementById('result').innerText = `添加成功，短网址为：${window.location.origin}${response_data.url}`
+                    } else if(response_data.status==1) {
+                        document.getElementById('result').innerText = `【OSS数据持久化成功】添加成功，短网址为：${window.location.origin}${response_data.url}`
+                    } else if(response_data.status==2) {
+                        document.getElementById('result').innerText = `【OSS环境变量有误，数据存储至内存中】添加成功，短网址为：${window.location.origin}${response_data.url}`
+                    } else if(response_data.status==3) {
+                        document.getElementById('result').innerText = `【未配置所有OSS环境变量，数据存储至内存中】添加成功，短网址为：${window.location.origin}${response_data.url}`
                     }
-
                 }
             }
             xmlhttp.open("POST", '/api',);
@@ -86,9 +89,8 @@
             <p>输入参数：<br>
             &nbsp;&nbsp;&nbsp;&nbsp;<code>target</code>：[body] 目标地址</p>
             <p>输出参数：<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<code>status</code>：状态，1表示成功生成，0表示生成失败<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<code>url</code>：在状态为1时返回，短网址<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<code>msg</code>：在状态为0时返回，错误信息<br></p>
+            &nbsp;&nbsp;&nbsp;&nbsp;<code>status</code>：状态，1表示OSS持久化成功，2表示OSS环境变量有误，数据存储至内存中，3表示未配置所有OSS环境变量，数据存储至内存中<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<code>url</code>：返回短网址<br></p>
             <p>示例代码（cURL）：<br>
             <pre>curl --location --request POST 'https://域名/api' \
 --header 'Content-Type: text/plain' \

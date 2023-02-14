@@ -12,7 +12,7 @@
 ```bash
 pip3 install -r requirements.txt 
 ```
-> 环境变量设置
+> 环境变量设置【不配置 OSS 则将使用内存存储】
 
 设置阿里云的 AK、SK，与 OSS endpoint 的 region 与 bucketname。
 所需环境变量：

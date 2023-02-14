@@ -8,6 +8,8 @@ import urllib.parse
 # 获取随机字符串
 randomStr = lambda len: "".join(random.sample('abcdefghijklqrstuvwxyz123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ' * 100, len))
 
+url_map = {}
+
 def getBucket():
     AccessKey = {
         "id": os.environ.get("ALI_KEY_ID"),
@@ -23,8 +25,6 @@ def getBucket():
     auth = oss2.Auth(AccessKey['id'], AccessKey['secret'])
     bucket = oss2.Bucket(auth, OSSConf['endPoint'], OSSConf['bucketName'])
     return bucket
-
-url_map = {}
 
 # 首页
 @bottle.route('/')

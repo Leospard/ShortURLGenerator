@@ -14,6 +14,7 @@ def getBucket():
     AccessKey = {
         "id": os.environ.get("ALIBABA_CLOUD_ACCESS_KEY_ID"),
         "secret": os.environ.get("ALIBABA_CLOUD_ACCESS_KEY_SECRET"),
+        "token": os.environ.get("ALIBABA_CLOUD_SECURITY_TOKEN"),
     }
     OSSConf = {
         'endPoint': 'oss-' + os.environ.get("region") + '.aliyuncs.com',
@@ -22,7 +23,7 @@ def getBucket():
     }
 
     # 获取获取/上传文件到OSS的临时地址
-    auth = oss2.Auth(AccessKey['id'], AccessKey['secret'])
+    auth = oss2.StsAuth(AccessKey['id'], AccessKey['secret'], AccessKey['token'])
     bucket = oss2.Bucket(auth, OSSConf['endPoint'], OSSConf['bucketName'])
     return bucket
 
@@ -59,7 +60,7 @@ def short_api():
         body = json.loads(bottle.request.body.read().decode("utf-8"))
         target = body.get("target")
         source = randomStr(5)
-        if os.environ.get("ALIBABA_CLOUD_ACCESS_KEY_ID") != None and os.environ.get("ALIBABA_CLOUD_ACCESS_KEY_SECRET") != None and os.environ.get("region") != None and os.environ.get("bucket"):
+        if os.environ.get("ALIBABA_CLOUD_ACCESS_KEY_ID") != None and os.environ.get("ALIBABA_CLOUD_ACCESS_KEY_SECRET") != None and os.environ.get("ALIBABA_CLOUD_SECURITY_TOKEN") and os.environ.get("region") != None and os.environ.get("bucket"):
             try:
                 bucket = getBucket()
                 bucket.put_object(source, target)

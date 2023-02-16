@@ -37,7 +37,7 @@
                     } else if(response_data.status==2) {
                         document.getElementById('result').innerText = `【OSS环境变量有误，数据存储至内存中】添加成功，短网址为：${window.location.origin}${response_data.url}`
                     } else if(response_data.status==3) {
-                        document.getElementById('result').innerText = `【未配置所有OSS环境变量，数据存储至内存中】添加成功，短网址为：${window.location.origin}${response_data.url}`
+                        document.getElementById('result').innerText = `【未配置所有OSS环境变量，数据存储至内存中，多实例时可能会失效】添加成功，短网址为：${window.location.origin}${response_data.url}`
                     }
                 }
             }

@@ -59,7 +59,7 @@ def short_api():
         body = json.loads(bottle.request.body.read().decode("utf-8"))
         target = body.get("target")
         source = randomStr(5)
-        if os.environ.get("ALI_KEY_ID") != None and os.environ.get("ALI_KEY_SECRET") != None and os.environ.get("ALI_OSS_REGION") != None and os.environ.get("BUCKET"):
+        if os.environ.get("ALIBABA_CLOUD_ACCESS_KEY_ID") != None and os.environ.get("ALIBABA_CLOUD_ACCESS_KEY_SECRET") != None and os.environ.get("region") != None and os.environ.get("bucket"):
             try:
                 bucket = getBucket()
                 bucket.put_object(source, target)

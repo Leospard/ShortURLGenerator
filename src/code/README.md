@@ -1,4 +1,4 @@
-# ShortLinkGenerator
+# ShortURLGenerator
 
 
 <description>

@@ -12,13 +12,13 @@ url_map = {}
 
 def getBucket():
     AccessKey = {
-        "id": os.environ.get("ALI_KEY_ID"),
-        "secret": os.environ.get("ALI_KEY_SECRET"),
+        "id": os.environ.get("ALIBABA_CLOUD_ACCESS_KEY_ID"),
+        "secret": os.environ.get("ALIBABA_CLOUD_ACCESS_KEY_SECRET"),
     }
     OSSConf = {
-        'endPoint': 'oss-' + os.environ.get("ALI_OSS_REGION") + '.aliyuncs.com',
+        'endPoint': 'oss-' + os.environ.get("region") + '.aliyuncs.com',
         # 'endPoint': 'oss-cn-hongkong.aliyuncs.com',
-        'bucketName': os.environ.get("BUCKET"),
+        'bucketName': os.environ.get("bucket"),
     }
 
     # 获取获取/上传文件到OSS的临时地址

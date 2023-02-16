@@ -14,18 +14,22 @@
 #   更多函数计算案例，可参考：https://github.com/devsapp/awesome/
 #   有问题快来钉钉群问一下吧：33947367
 # ------------------------------------
-edition: 1.0.0
-name: serverless-help
-access: "default"
+edition: 0.1.0
+name: short-url-generator
+# access 是当前应用所需要的密钥信息配置：
+# 密钥配置可以参考：https://www.serverless-devs.com/serverless-devs/command/config
+# 密钥使用顺序可以参考：https://www.serverless-devs.com/serverless-devs/tool#密钥使用顺序与规范
+access: {{ access }}
 
 vars: # 全局变量
-  region: "cn-hangzhou"
-  bucket: "serverless-demo-static"
+  region: "{{ region }}"
+  functionName: "{{ functionName }}"
+  bucket: "{{ bucket }}"
   service:
-    name: "dwz-onl"
-    role: "acs:ram::xxx:role/AliyunFcDefaultRole"
-    description: 'Serverless Devs Web Framework Service'
-
+    name: "{{ serviceName }}"
+    description: "A short url generator deployed bby Serverless Devs"
+    role: "{{ roleArn }}"
+  
 services:
   framework: # 业务名称/模块名称
     component: fc # 组件名称，Serverless Devs 工具本身类似于一种游戏机，不具备具体的业务能力，组件类似于游戏卡，用户通过向游戏机中插入不同的游戏卡实现不同的功能，即通过使用不同的组件实现不同的具体业务能力
@@ -37,12 +41,20 @@ services:
       region: ${vars.region} # 关于变量的使用方法，可以参考：https://www.serverless-devs.com/serverless-devs/yaml#变量赋值
       service: ${vars.service}
       function:
-        name: "server"
-        description: 'Serverless Devs Web Framework Function'
+        name: ${vars.functionName}
         codeUri: './code'
-        runtime: python3.9
-        handler: index.app
-        timeout: 60
+        runtime: custom
+        timeout: 7200
+        memorySize: 3072
+        cpu: 2.0
+        diskSize: 512
+        instanceConcurrency: 16
+        caPort: 9000
+        customRuntimeConfig:
+          command:
+            - python
+          args:
+            - 'index.py'
         environmentVariables: 
           region: ${vars.region}
           bucket: ${vars.bucket}

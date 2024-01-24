@@ -1,17 +1,4 @@
 # short-url-generator 帮助文档
-
-<p align="center" class="flex justify-center">
-    <a href="https://www.serverless-devs.com" class="ml-1">
-    <img src="http://editor.devsapp.cn/icon?package=start-bottle&type=packageType">
-  </a>
-  <a href="http://www.devsapp.cn/details.html?name=start-bottle" class="ml-1">
-    <img src="http://editor.devsapp.cn/icon?package=start-bottle&type=packageVersion">
-  </a>
-  <a href="http://www.devsapp.cn/details.html?name=start-bottle" class="ml-1">
-    <img src="http://editor.devsapp.cn/icon?package=start-bottle&type=packageDownload">
-  </a>
-</p>
-
 <description>
 
 这是一个免费的短网址生成工具。该工具仅支持日常生活中的短网址生成，不可以用于违法行为。
